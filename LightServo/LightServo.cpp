@@ -1,6 +1,9 @@
 //CODE FOR ARDUINO UNO
 
 #include <Arduino.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <avr/io.h>
 
 //define the threshold value for the photoresistor
 #define MIN_LIGHT 600
@@ -10,7 +13,7 @@ void setup()
 	//set the servo motor interaction pin (we'll use pin 4) to OUTPUT so we can send pulses to servo
 	//DDRD is the Port D Data Direction Register (pins 0-7), a register that tells the chip whether these pins
 	//are configured as input (1) or output (0). DDR4 evaluates to the constant int 4.
-	DDRD |= (1<<DDR4);
+	DDRD |= (1<<DDD4);
 }
 
 //servos are controlled by sending them a 20ms pulse
@@ -39,14 +42,14 @@ void loop()
 		//increase the amt of time the servo signal is kept high by 0.01 ms each time
 		pulseHighMicroSec += angleIncrement;
 
-		//set voltage HIGH to start the servo period and pulse
-		digitalWrite(SERVO_PIN, HIGH);
+		//set voltage HIGH to start the servo period and pulse. PORTD is the Port D (pin 0-7) Data Register
+		PORTD |= (1<<DDD4);
 
 		//delay for length of pulse (1.8 ms)
 		delayMicroseconds(pulseHighMicroSec);
 
-		//set voltage LOW for remainder of servo pulse
-		digitalWrite(SERVO_PIN, LOW);
+		//set voltage LOW for remainder of servo pulse. PORTD is the Port D (pin 0-7) Data Register
+		PORTD &= ~(1<<DDD4);
 
 		//delay for remainder of servo period so that next signal starts on time
 		delayMicroseconds(periodMicroSec - pulseHighMicroSec);
