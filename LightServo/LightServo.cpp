@@ -2,16 +2,15 @@
 
 #include <Arduino.h>
 
-//set the servo motor interaction pin to pin 4
-#define SERVO_PIN 4
-
 //define the threshold value for the photoresistor
 #define MIN_LIGHT 600
 
 void setup()
 {
-	//set the servo motor interaction pin to OUTPUT so we can send pulses to servo
-	pinMode(SERVO_PIN, OUTPUT);
+	//set the servo motor interaction pin (we'll use pin 4) to OUTPUT so we can send pulses to servo
+	//DDRD is the Port D Data Direction Register (pins 0-7), a register that tells the chip whether these pins
+	//are configured as input (1) or output (0). DDR4 evaluates to the constant int 4.
+	DDRD |= (1<<DDR4);
 }
 
 //servos are controlled by sending them a 20ms pulse
