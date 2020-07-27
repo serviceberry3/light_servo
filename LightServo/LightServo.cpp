@@ -12,7 +12,7 @@ void setup()
 {
 	//set the servo motor interaction pin (we'll use pin 4) to OUTPUT so we can send pulses to servo
 	//DDRD is the Port D Data Direction Register (pins 0-7), a register that tells the chip whether these pins
-	//are configured as input (1) or output (0). DDR4 evaluates to the constant int 4.
+	//are configured as input (1) or output (0). DDD4 evaluates to the constant int 4.
 	DDRD |= (1<<DDD4);
 }
 
